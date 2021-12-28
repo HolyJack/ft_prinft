@@ -1,0 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putnbr_pf.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/28 17:58:37 by ejafer            #+#    #+#             */
+/*   Updated: 2021/12/28 17:58:37 by ejafer           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/ft_printf.h"
+
+int ft_nbrlen(int nbr)
+{
+	int	len;
+
+	len = 1;
+	if (nbr < 0)
+		len++;
+	while ((nbr /= 10) != 0)
+		len++;
+	return (len);
+}
+
+int	ft_putnbr_pf(int nbr)
+{
+	ft_putnbr_fd(nbr, 1);
+	return (ft_nbrlen(nbr));
+}
