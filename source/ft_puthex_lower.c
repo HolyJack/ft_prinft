@@ -12,23 +12,25 @@
 
 #include "../includes/ft_printf.h"
 
-int ft_puthex_lower(unsigned int unbr)
+int	ft_puthex_lower(unsigned int unbr)
 {
 	const int	maxlen = 8;
-	char		letters[16] = "0123456789abcdef";
+	const char	letters[16] = "0123456789abcdef";
 	char		*hnbr;
 	int			len;
 
 	len = 1;
-	hnbr = "00000000";
+	hnbr = malloc(sizeof(char) * 9);
+	hnbr[8] = '\0';
 	hnbr[maxlen - len] = letters[unbr % 16];
 	unbr /= 16;
 	while (unbr > 0)
 	{
+		len++;
 		hnbr[maxlen - len] = letters[unbr % 16];
 		unbr /= 16;
-		len++;
 	}
 	ft_putstr_fd(hnbr + maxlen - len, 1);
+	free(hnbr);
 	return (len);
 }

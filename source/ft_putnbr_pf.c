@@ -12,15 +12,18 @@
 
 #include "../includes/ft_printf.h"
 
-int ft_nbrlen(int nbr)
+static int	ft_nbrlen(int nbr)
 {
 	int	len;
 
 	len = 1;
 	if (nbr < 0)
 		len++;
-	while ((nbr /= 10) != 0)
+	while (nbr != 0)
+	{
+		nbr /= 10;
 		len++;
+	}
 	return (len);
 }
 

@@ -12,13 +12,12 @@
 
 
 NAME	=	libftprintf.a
-HDR		= 	
+TEST	=	test
 
-NAMES	=   ft_printf.c ft_putchar_pf.c ft_putstr_pf.c ft_putnbr_pf.c ft_putunbr_pf.c ft_puthex_lower.c ft_puthex_upper.c ft_puthex_pf.c
+NAMES	=   ft_printf.c ft_putchar_pf.c ft_putstr_pf.c ft_putnbr_pf.c ft_putunbr_pf.c ft_puthex_lower.c ft_puthex_upper.c ft_puthex_pf.c ft_putpercent_pf.c
 SRC		=	$(addprefix source/, ${NAMES})
 
 OBJ		=	$(SRC:.c=.o)
-
 D_FILES =	${SRC:.c=.d}
 
 CC		=	gcc
@@ -30,13 +29,16 @@ all: ${NAME}
 $(NAME): ${OBJ}
 			ar rcs ${NAME} $?
 
+${TEST}: ${NAME}
+			${CC} ${CFLAGS} ${OPFLAGS} -Iincludes -L. main.c -lftprintf -Llibft -lft
+
 %.o: %.c ${HDR}
 			$(CC) $(CFLAGS) ${OPFLAGS} -c $< -o $@ -MD
 
 include $(wildcard $(D_FILES))
 
 clean:
-			@rm -f ${OBJ} ${OBJ_B} $(D_FILES)
+			@rm -f ${OBJ} ${D_FILES}
 
 fclean:	clean
 			@rm -f ${TRGT}

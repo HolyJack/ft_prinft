@@ -45,7 +45,7 @@ OPFLAGS	=	-O2
 
 all: ${NAME}
 
-$(NAME): ${OBJ}
+$(NAME): ${OBJ} 
 			ar rcs ${NAME} $?
 
 bonus: 

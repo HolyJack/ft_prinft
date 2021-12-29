@@ -12,17 +12,21 @@
 
 #include "../includes/ft_printf.h"
 
-int ft_nbrlen(unsigned int unbr)
+static int	ft_nbrlen(unsigned int unbr)
 {
 	int	len;
 
 	len = 1;
-	while ((unbr / 10) != 0)
+	unbr /= 10;
+	while (unbr != 0)
+	{
+		unbr /= 10;
 		len++;
+	}
 	return (len);
 }
 
-int	ft_putunbr_fd(int unbr, int fd)
+int	ft_putunbr_fd(unsigned int unbr, int fd)
 {
 	const int	nbrlen = ft_nbrlen(unbr);
 	int			len;
@@ -46,7 +50,6 @@ int	ft_putunbr_fd(int unbr, int fd)
 	}
 	return ((int) nbrlen);
 }
-
 
 int	ft_putunbr_pf(unsigned int unbr)
 {

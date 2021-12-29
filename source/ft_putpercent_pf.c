@@ -12,7 +12,7 @@
 
 #include "../includes/ft_printf.h"
 
-int ft_putpercent_pf()
+int	ft_putpercent_pf(void)
 {
 	write(1, "%", 1);
 	return (1);

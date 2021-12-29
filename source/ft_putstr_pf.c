@@ -12,15 +12,8 @@
 
 #include "../includes/ft_printf.h"
 
-int ft_putstr_pf(char *str)
+int	ft_putstr_pf(char *str)
 {
-	int len;
-
-	len = 0;
-	while (*str++)
-	{
-		write(1, str, 1);
-		len++;
-	}
-	return (len);
+	ft_putstr_fd(str, 1);
+	return (ft_strlen(str));
 }
