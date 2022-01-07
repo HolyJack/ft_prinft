@@ -19,11 +19,8 @@ static int	ft_nbrlen(int nbr)
 	len = 1;
 	if (nbr < 0)
 		len++;
-	while (nbr != 0)
-	{
-		nbr /= 10;
+	while ((nbr /= 10) != 0)
 		len++;
-	}
 	return (len);
 }
 

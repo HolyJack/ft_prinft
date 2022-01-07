@@ -31,5 +31,6 @@ int	ft_puthex_upper(unsigned int unbr)
 		unbr /= 16;
 	}
 	ft_putstr_fd(hnbr + maxlen - len, 1);
+	free(hnbr);
 	return (len);
 }

@@ -40,7 +40,7 @@ OBJ_B	=	$(SRC_B:.c=.o)
 D_FILES =	${SRC:.c=.d} ${SRC_B:.c=.d}
 
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra
 OPFLAGS	=	-O2
 
 all: ${NAME}

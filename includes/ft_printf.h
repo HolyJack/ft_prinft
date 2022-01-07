@@ -11,6 +11,6 @@ int	ft_putnbr_pf(int nbr);
 int	ft_putunbr_pf(unsigned int unbr);
 int ft_puthex_lower(unsigned int  nbr);
 int ft_puthex_upper(unsigned int  nbr);
-int ft_puthex_pf(void *ptrunbr);
+int ft_puthex_pf(void * arg);
 
 #endif

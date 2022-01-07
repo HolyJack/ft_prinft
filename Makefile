@@ -27,20 +27,21 @@ SRC		=	$(addprefix source/, ${NAMES})
 OBJ		=	$(SRC:.c=.o)
 D_FILES =	${SRC:.c=.d}
 
-CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror
+CC		=	cc
+CFLAGS	=	-Wall -Wextra
 OPFLAGS	=	-O2
 
 all: ${NAME}
 
-$(NAME): ${OBJ}
-			ar rcs ${NAME} $?
+$(NAME): ${OBJ} ${LFT}
+			cp ${LFT} .
+			mv libft.a ${NAME}
+			ar rcs ${NAME} ${OBJ}
 
 ${LFT}:	${LFTHDR}
 			${MAKE} -C ${LFTDIR} $(MAKECMDGOALS)
-
-%.o: %.c ${LFT}	${HDR}
-			$(CC) $(CFLAGS) ${OPFLAGS} -c $< -Llibft -lft -o $@ -MD
+%.o: %.c ${HDR}
+			$(CC) $(CFLAGS) ${OPFLAGS} -c $< -o $@
 
 include $(wildcard $(D_FILES))
 
