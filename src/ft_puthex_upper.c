@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_puthex_lower.c                                  :+:      :+:    :+:   */
+/*   ft_puthex_upper.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/28 18:28:09 by ejafer            #+#    #+#             */
-/*   Updated: 2021/12/28 18:28:09 by ejafer           ###   ########.fr       */
+/*   Created: 2021/12/28 18:54:51 by ejafer            #+#    #+#             */
+/*   Updated: 2021/12/28 18:54:51 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "../include/ft_printf.h"
 
-int	ft_puthex_lower(unsigned int unbr)
+int	ft_puthex_upper(unsigned int unbr)
 {
 	const int	maxlen = 8;
-	const char	letters[16] = "0123456789abcdef";
+	const char	letters[16] = "0123456789ABCDEF";
 	char		*hnbr;
 	int			len;
 

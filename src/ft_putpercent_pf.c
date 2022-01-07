@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_putpercent.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/28 17:52:55 by ejafer            #+#    #+#             */
-/*   Updated: 2021/12/28 17:52:55 by ejafer           ###   ########.fr       */
+/*   Created: 2021/12/28 17:50:17 by ejafer            #+#    #+#             */
+/*   Updated: 2021/12/28 17:50:17 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "../include/ft_printf.h"
 
-int	ft_putstr_pf(char *str)
+int	ft_putpercent_pf(void)
 {
-	if (!str)
-		return (write(1, "(null)", 6));
-	ft_putstr_fd(str, 1);
-	return (ft_strlen(str));
+	write(1, "%", 1);
+	return (1);
 }

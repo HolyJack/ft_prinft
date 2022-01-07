@@ -11,46 +11,54 @@
 # **************************************************************************** #
 
 
-NAME	=	libftprintf.a
+NAME		=	libftprintf.a
 
-HDR		=	./includes/ft_printf.h
-LFT		=	./libft/libft.a
-LFTDIR	=	./libft/
-LFTHDR	=	./libft/libft.h
+LIBFT_DIR	=	libft/
+SRC_DIR		=	src/
+OBJ_DIR		=	obj/
 
-NAMES	=   ft_printf.c ft_putchar_pf.c ft_putstr_pf.c \
-			ft_putnbr_pf.c ft_putunbr_pf.c ft_puthex_lower.c \
-			ft_puthex_upper.c ft_puthex_pf.c ft_putpercent_pf.c
+LIBFT		=	libft/libft.a
 
-SRC		=	$(addprefix source/, ${NAMES})
+HDR			=	include/ft_printf.h
+LIBFT_HDR	=	libft/libft.h
 
-OBJ		=	$(SRC:.c=.o)
-D_FILES =	${SRC:.c=.d}
 
-CC		=	cc
-CFLAGS	=	-Wall -Wextra
-OPFLAGS	=	-O2
+SRC_NAMES	=   ft_printf ft_putchar_pf ft_putstr_pf \
+				ft_putnbr_pf ft_putunbr_pf ft_puthex_lower \
+				ft_puthex_upper ft_puthex_pf ft_putpercent_pf
 
-all: ${NAME}
+SRC			=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_NAMES)))
+OBJ			=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_NAMES)))
+D_FILES 	=	$(addprefix $(OBJ_DIR), $(addsuffix .d, $(SRC_NAMES)))
 
-$(NAME): ${OBJ} ${LFT}
-			cp ${LFT} .
-			mv libft.a ${NAME}
-			ar rcs ${NAME} ${OBJ}
+CC			=	cc
+CFLAGS		=	-Wall -Werror -Wextra
+OPFLAGS		=	-O2
 
-${LFT}:	${LFTHDR}
-			${MAKE} -C ${LFTDIR} $(MAKECMDGOALS)
-%.o: %.c ${HDR}
-			$(CC) $(CFLAGS) ${OPFLAGS} -c $< -o $@
+RM      	=	rm -f
+AR			=	ar rcs
+
+all: $(NAME)
+
+$(NAME): $(OBJ) $(LIBFT)
+			@cp $(LIBFT) .
+			@mv libft.a $(NAME)
+			$(AR) $(NAME) $(OBJ)
+
+$(LIBFT):	$(LIBFT_HDR)
+			${MAKE} -C $(LIBFT_DIR) $(MAKECMDGOALS)
+
+$(OBJ):	$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HDR)
+			$(CC) $(CFLAGS) $(OPFLAGS) -c $< -o $@	-MD
 
 include $(wildcard $(D_FILES))
 
 clean:
-			${MAKE}	-C ${LFTDIR} $(MAKECMDGOALS)
-			@rm -f ${OBJ} ${D_FILES}
+			@$(MAKE) -C $(LIBFT_DIR) $(MAKECMDGOALS)
+			@$(RM) $(OBJ) $(D_FILES)
 
 fclean:	clean
-			@rm -f ${NAME}
+			@$(RM) $(NAME)
 
 re:	fclean all
 

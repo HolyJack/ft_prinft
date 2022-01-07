@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "../include/ft_printf.h"
 
 int	ft_puthex_pf(void *arg)
 {
-	const int	maxlen = 16;
-	const char	letters[16] = "0123456789abcdef";
-	char		*hnbr;
-	int			len;
+	const int		maxlen = 16;
+	const char		letters[16] = "0123456789abcdef";
+	char			*hnbr;
+	int				len;
 	unsigned long	unbr;
 
 	if (!arg)
@@ -40,4 +40,3 @@ int	ft_puthex_pf(void *arg)
 	free(hnbr);
 	return (len + 2);
 }
-

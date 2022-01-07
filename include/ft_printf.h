@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_pf.c                                     :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/28 17:58:37 by ejafer            #+#    #+#             */
-/*   Updated: 2021/12/28 17:58:37 by ejafer           ###   ########.fr       */
+/*   Created: 2022/01/07 08:39:27 by ejafer            #+#    #+#             */
+/*   Updated: 2022/01/07 08:39:27 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
+# include <stdarg.h>
+# include "../libft/libft.h"
 
-static int	ft_nbrlen(int nbr)
-{
-	int	len;
+int	ft_printf(const char *format, ...);
+int	ft_putpercent_pf(void);
+int	ft_putchar_pf(char c);
+int	ft_putstr_pf(char *str);
+int	ft_putnbr_pf(int nbr);
+int	ft_putunbr_pf(unsigned int unbr);
+int	ft_puthex_lower(unsigned int nbr);
+int	ft_puthex_upper(unsigned int nbr);
+int	ft_puthex_pf(void *arg);
 
-	len = 1;
-	if (nbr < 0)
-		len++;
-	while ((nbr /= 10) != 0)
-		len++;
-	return (len);
-}
-
-int	ft_putnbr_pf(int nbr)
-{
-	ft_putnbr_fd(nbr, 1);
-	return (ft_nbrlen(nbr));
-}
+#endif
