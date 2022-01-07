@@ -12,9 +12,16 @@
 
 
 NAME	=	libftprintf.a
-TEST	=	test
 
-NAMES	=   ft_printf.c ft_putchar_pf.c ft_putstr_pf.c ft_putnbr_pf.c ft_putunbr_pf.c ft_puthex_lower.c ft_puthex_upper.c ft_puthex_pf.c ft_putpercent_pf.c
+HDR		=	./includes/ft_printf.h
+LFT		=	./libft/libft.a
+LFTDIR	=	./libft/
+LFTHDR	=	./libft/libft.h
+
+NAMES	=   ft_printf.c ft_putchar_pf.c ft_putstr_pf.c \
+			ft_putnbr_pf.c ft_putunbr_pf.c ft_puthex_lower.c \
+			ft_puthex_upper.c ft_puthex_pf.c ft_putpercent_pf.c
+
 SRC		=	$(addprefix source/, ${NAMES})
 
 OBJ		=	$(SRC:.c=.o)
@@ -29,19 +36,20 @@ all: ${NAME}
 $(NAME): ${OBJ}
 			ar rcs ${NAME} $?
 
-${TEST}: ${NAME}
-			${CC} ${CFLAGS} ${OPFLAGS} -Iincludes -L. main.c -lftprintf -Llibft -lft
+${LFT}:	${LFTHDR}
+			${MAKE} -C ${LFTDIR} $(MAKECMDGOALS)
 
-%.o: %.c ${HDR}
-			$(CC) $(CFLAGS) ${OPFLAGS} -c $< -o $@ -MD
+%.o: %.c ${LFT}	${HDR}
+			$(CC) $(CFLAGS) ${OPFLAGS} -c $< -Llibft -lft -o $@ -MD
 
 include $(wildcard $(D_FILES))
 
 clean:
+			${MAKE}	-C ${LFTDIR} $(MAKECMDGOALS)
 			@rm -f ${OBJ} ${D_FILES}
 
 fclean:	clean
-			@rm -f ${TRGT}
+			@rm -f ${NAME}
 
 re:	fclean all
 

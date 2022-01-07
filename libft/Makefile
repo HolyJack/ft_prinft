@@ -60,7 +60,7 @@ clean:
 			@rm -f ${OBJ} ${OBJ_B} $(D_FILES)
 
 fclean:	clean
-			@rm -f ${TRGT}
+			@rm -f ${NAME}
 
 re:	fclean all
 
