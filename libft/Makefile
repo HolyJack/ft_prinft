@@ -6,7 +6,7 @@
 #    By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/15 20:15:28 by ejafer            #+#    #+#              #
-#    Updated: 2021/10/18 19:05:30 by ejafer           ###   ########.fr        #
+#    Updated: 2022/01/08 20:55:07 by ejafer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,8 +39,8 @@ OBJ_B	=	$(SRC_B:.c=.o)
 
 D_FILES =	${SRC:.c=.d} ${SRC_B:.c=.d}
 
-CC		=	gcc
-CFLAGS	=	-Wall -Wextra
+CC		=	cc
+CFLAGS	=	-Wall -Wextra -Werror
 OPFLAGS	=	-O2
 
 all: ${NAME}
