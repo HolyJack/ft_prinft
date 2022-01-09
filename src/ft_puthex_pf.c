@@ -21,7 +21,7 @@ int	ft_puthex_pf(void *arg)
 	unsigned long	unbr;
 
 	if (!arg)
-		return (write(1, "(nil)", 5));
+		return (write(1, "(null)", 6));
 	unbr = (unsigned long) arg;
 	hnbr = malloc(sizeof(char) * (maxlen + 1));
 	if (!hnbr)
