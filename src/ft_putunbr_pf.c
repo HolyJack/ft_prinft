@@ -44,10 +44,7 @@ int	ft_putunbr_fd(unsigned int unbr, int fd)
 	}
 	iter = (char *) buf;
 	while (*iter)
-	{
-		ft_putchar_fd(*iter, fd);
-		iter++;
-	}
+		iter += ft_putchar_fd(*iter, fd);
 	return ((int) nbrlen);
 }
 

@@ -46,7 +46,7 @@ $(NAME): $(OBJ) $(LIBFT)
 			$(AR) $(NAME) $(OBJ)
 
 $(LIBFT):	$(LIBFT_HDR)
-			${MAKE} -C $(LIBFT_DIR) $(MAKECMDGOALS)
+			${MAKE} -C $(LIBFT_DIR)
 
 $(OBJ):	$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HDR)
 			$(CC) $(CFLAGS) $(OPFLAGS) -c $< -o $@	-MD

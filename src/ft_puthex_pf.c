@@ -24,6 +24,8 @@ int	ft_puthex_pf(void *arg)
 		return (write(1, "(nil)", 5));
 	unbr = (unsigned long) arg;
 	hnbr = malloc(sizeof(char) * (maxlen + 1));
+	if (!hnbr)
+		return (-1);
 	hnbr[maxlen] = '\0';
 	ft_memset(hnbr, '0', maxlen);
 	len = 1;

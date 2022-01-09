@@ -21,6 +21,8 @@ int	ft_puthex_lower(unsigned int unbr)
 
 	len = 1;
 	hnbr = malloc(sizeof(char) * 9);
+	if (!hnbr)
+		return (-1);
 	hnbr[8] = '\0';
 	hnbr[maxlen - len] = letters[unbr % 16];
 	unbr /= 16;
