@@ -6,7 +6,7 @@
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 18:06:52 by ejafer            #+#    #+#             */
-/*   Updated: 2022/01/08 20:41:41 by ejafer           ###   ########.fr       */
+/*   Updated: 2022/01/10 19:47:55 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,19 @@ int	ft_putunbr_fd(unsigned int unbr, int fd)
 {
 	const int	nbrlen = ft_nbrlen(unbr);
 	int			len;
-	char		buf[10];
-	char		*iter;
+	char		*buf;
 
-	len = 10;
-	while (len-- > 0)
-		buf[len] = 0;
+	buf = malloc(sizeof(char) * (nbrlen + 1));
+	buf[nbrlen] = 0;
 	len = nbrlen;
 	while (len-- > 0)
 	{
-		buf[len] = unbr % 10 + '0';
+		buf[len] = (unbr % 10) + '0';
 		unbr /= 10;
 	}
-	iter = (char *) buf;
-	while (*iter)
-		iter += ft_putchar_fd(*iter, fd);
-	return ((int) nbrlen);
+	ft_putstr_fd(buf, fd);
+	free(buf);
+	return (nbrlen);
 }
 
 int	ft_putunbr_pf(unsigned int unbr)

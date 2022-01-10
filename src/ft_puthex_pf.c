@@ -6,7 +6,7 @@
 /*   By: ejafer <ejafer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 18:28:09 by ejafer            #+#    #+#             */
-/*   Updated: 2022/01/08 20:41:29 by ejafer           ###   ########.fr       */
+/*   Updated: 2022/01/09 21:26:01 by ejafer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ int	ft_puthex_pf(void *arg)
 	int				len;
 	unsigned long	unbr;
 
-	if (!arg)
-		return (write(1, "(null)", 6));
 	unbr = (unsigned long) arg;
 	hnbr = malloc(sizeof(char) * (maxlen + 1));
 	hnbr[maxlen] = '\0';
