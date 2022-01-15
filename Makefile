@@ -23,9 +23,7 @@ HDR			=	include/ft_printf.h
 LIBFT_HDR	=	libft/libft.h
 
 
-SRC_NAMES	=	ft_printf ft_putchar_pf ft_putstr_pf \
-				ft_putnbr_pf ft_putunbr_pf ft_puthex_lower \
-				ft_puthex_upper ft_puthex_pf ft_putpercent_pf
+SRC_NAMES	=	ft_printf
 
 SRC			=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_NAMES)))
 OBJ			=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_NAMES)))

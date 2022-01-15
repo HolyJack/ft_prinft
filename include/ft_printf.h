@@ -14,15 +14,19 @@
 # define FT_PRINTF_H
 # include <stdarg.h>
 # include "../libft/libft.h"
+# define MIN(a, b) (a < b ? a: b)
+# define MAX(a, b) (a > b ? a: b)
+
+typedef struct s_print
+{
+	va_list args;
+	int	wdt;
+	int prc;
+	int ptr;
+	int sft;
+
+} t_print;
 
 int	ft_printf(const char *format, ...);
-int	ft_putpercent_pf(void);
-int	ft_putchar_pf(char c);
-int	ft_putstr_pf(char *str);
-int	ft_putnbr_pf(int nbr);
-int	ft_putunbr_pf(unsigned int unbr);
-int	ft_puthex_lower(unsigned int nbr);
-int	ft_puthex_upper(unsigned int nbr);
-int	ft_puthex_pf(void *arg);
 
 #endif
