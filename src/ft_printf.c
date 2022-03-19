@@ -10,151 +10,88 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_printf.h"
+#include "ft_printf.h"
 
-t_print *ft_init_print(t_print *tab)
+char *ft_strjoin_char(char *str, char c)
 {
-	tab->prc = 0;
-	tab->wdt = 0;
-	tab->ptr = 0;
-	return (tab);
-}
+	char	*tmp;
 
-void ft_print_str(t_print *tab)
-{
-	const char *str;
-	int strlen;
-
-	str = va_arg(tab->args, const char *);
-	strlen = ft_strlen(str);
-	if (tab->ptr)
-		strlen = MIN(strlen, tab->prc);
-	while (tab->wdt-- > strlen)
-		tab->sft += write(1, " ", 1);
-	tab->sft += write(1, str, strlen);
-}
-
-void ft_print_nbr(t_print *tab)
-{
-	char	*str;
-	long	nbr;
-	int		strlen;
-	int		nbrlen;
-	int 	sign;
-
-	nbr = (long) va_arg(tab->args, int);
-	if (tab->ptr && !tab->prc && !nbr)
-		return ;
-	sign = 0;
-	if (nbr < 0)
-	{
-		sign = 1;
-		nbr = -nbr;
-	}
-	nbrlen = ft_nbrlen(nbr);
-	strlen = nbrlen;
-	if (tab->ptr)
-		strlen = MAX(nbrlen, tab->prc);
-	while (tab->wdt-- > strlen + sign)
-		tab->sft += write(1, " ", 1);
-	if (sign)
-		tab->sft += write(1, "-", 1);
-	str = malloc (sizeof(char) * (strlen + 1));
-	str[strlen] = 0;
-	ft_memset(str, '0', strlen);
-	while (nbrlen--)
-	{
-		str[--strlen] += nbr % 10;
-		nbr /= 10;
-	}
-	tab->sft += write(1, str, ft_strlen(str));
+	tmp = malloc(sizeof(char) * (ft_strlen(str) + 2));
+	ft_strlcpy(tmp, str, ft_strlen(str) + 1);
+	tmp[ft_strlen(str) + 1] = 0;
+	tmp[ft_strlen(str)] = c;
 	free(str);
+	return (tmp);
 }
 
-int ft_hexlen(unsigned int nbr)
+void ft_new_format(t_data *data)
 {
-	int len;
-
-	len = 1;
-	while (nbr /= 16)
-		len++;
-	return (len);
+	data->prc = 0;
+	data->wdt = 0;
+	data->ptr = 0;
 }
 
-void ft_print_hex(t_print *tab)
+void ft_parse_format(t_data *data)
 {
-	char	*str;
-	char	*base = "0123456789abcdef";
-	unsigned int nbr;
-	int hexlen;
-
-	nbr = va_arg(tab->args, unsigned int);
-	if (tab->ptr && !tab->prc && !nbr)
-		return ;
-	hexlen = ft_hexlen(nbr);
-	if (tab->ptr)
-		hexlen = MAX(hexlen, tab->prc);
-	while (tab->wdt-- > hexlen)
-		tab->sft += write(1, " ", 1);
-	str = malloc(sizeof(char) * (hexlen + 1));
-	str[hexlen] = 0;
-	ft_memset(str, '0', hexlen);
-	while (nbr)
+	ft_new_format(data);
+	data->i++;
+	while (!ft_strchr("sdx", data->format[data->i]))
 	{
-		str[--hexlen] = base[nbr % 16];
-		nbr /= 16;
-	}
-	tab->sft += write(1, str, ft_strlen(str));
-	free(str);
-}	
-
-int ft_parse_format(t_print *tab, const char *format, int i)
-{
-	ft_init_print(tab);
-	while (!ft_strchr("sdx", format[i]))
-	{
-		if (format[i] == '.')
+		if (data->format[data->i] == '.')
 		{
-			tab->ptr = 1;
-			i++;
+			data->ptr = 1;
+			data->i++;
 		}
-		while (ft_strchr("0123456789", format[i]))
+		while (ft_strchr("0123456789", data->format[data->i]))
 		{
-			if (tab->ptr)
-				tab->prc = tab->prc * 10 + format[i] - '0';
+			if (data->ptr)
+				data->prc = data->prc * 10 + data->format[data->i] - '0';
 			else 
-				tab->wdt = tab->wdt * 10 + format[i] - '0';
-			i++;
+				data->wdt = data->wdt * 10 + data->format[data->i] - '0';
+			(data->i)++;
 		}
 	}
-	if (format[i] == 's')
-		ft_print_str(tab);
-	if (format[i] == 'd')
-		ft_print_nbr(tab);
-	if (format[i] == 'x')
-		ft_print_hex(tab);
-	return (i);
+}
+void ft_make_str_from_format(t_data *data)
+{
+	char	*str;
+	char	*tmp;
+
+	ft_parse_format(data);
+	str = NULL;
+	if (data->format[data->i] == 's')
+		str = ft_format_str(data, va_arg(data->args, char *));
+	if (data->format[data->i] == 'd')
+		str = ft_format_int(data, va_arg(data->args, int));
+	if (data->format[data->i] == 'x')
+		str = ft_format_hex(data, va_arg(data->args, unsigned int));
+	tmp = ft_strjoin(data->result, str);
+	free(data->result);
+	free(str);
+	data->result = tmp;
 }
 
 int	ft_printf(const char *format, ...)
 {
-	int		i;
 	int		len;
-	t_print *tab;
+	t_data	*data;
 
-	tab = malloc (sizeof(t_print) * 1);
-	ft_init_print(tab);
-	tab->sft = 0;
-	va_start(tab->args, format);
-	i = -1;
-	len = 0;
-	while (format[++i])
-		if (format[i] == '%')
-			i = ft_parse_format(tab, format, i + 1);
+	data = malloc (sizeof(*data) * 1);
+	data->result = malloc(sizeof(char) * 1);
+	data->result[0] = 0;
+	data->format = format;
+	data->i = -1;
+	va_start(data->args, format);
+	while (data->format[++(data->i)])
+	{
+		if (data->format[data->i] == '%')
+			ft_make_str_from_format(data);
 		else
-			len += write(1, &format[i], 1);
-	len += tab->sft;
-	va_end(tab->args);
-	free(tab);
+			data->result = ft_strjoin_char(data->result, format[data->i]);
+	}
+	len = ft_putstr_fd(data->result, 1);
+	va_end(data->args);
+	free(data->result);
+	free(data);
 	return (len);
 }
